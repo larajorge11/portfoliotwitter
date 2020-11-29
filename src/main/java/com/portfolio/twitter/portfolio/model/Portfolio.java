@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "portfolio")
-public class Portfolio extends BaseEntity {
+public class Portfolio {
     @Id
     @Column(name = "idportfolio")
     private Integer id;
@@ -34,6 +34,6 @@ public class Portfolio extends BaseEntity {
     private String tittle;
 
     @Column(name = "id_portafolio")
-    private Long idPortafolio;
+    private Integer idPortafolio;
 
 }

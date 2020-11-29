@@ -1,13 +1,12 @@
 package com.portfolio.twitter.portfolio.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
 public class ProfileInformation {
+    private Integer idPortfolio;
     private String description;
     private String imageUrl;
     private String twitterUsername;
