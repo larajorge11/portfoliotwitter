@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Builder
 @AllArgsConstructor
-public class ProfileResponse {
+public class ProfileResponse implements Response {
     private ProfileInformation profileInfo;
     private List<TwitterInformation> tweets;
 }

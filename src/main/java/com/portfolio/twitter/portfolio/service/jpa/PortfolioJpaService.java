@@ -5,7 +5,8 @@ import com.portfolio.twitter.portfolio.repositories.PortfolioRepository;
 import com.portfolio.twitter.portfolio.service.PortfolioService;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PortfolioJpaService implements PortfolioService {
@@ -17,9 +18,10 @@ public class PortfolioJpaService implements PortfolioService {
     }
 
     @Override
-    public Set<Portfolio> findAll() {
-        portfolioRepository.findAll();
-        return null;
+    public List<Portfolio> findAll() {
+        List<Portfolio> portfolios = new ArrayList<>();
+        portfolioRepository.findAll().forEach(portfolios::add);
+        return portfolios;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.portfolio.twitter.portfolio.delegate;
 
-import com.portfolio.twitter.portfolio.domain.ProfileInformation;
-import com.portfolio.twitter.portfolio.domain.ProfileResponse;
-import com.portfolio.twitter.portfolio.domain.TwitterInformation;
+import com.portfolio.twitter.portfolio.domain.*;
 import com.portfolio.twitter.portfolio.mapper.PortfolioMapper;
 import com.portfolio.twitter.portfolio.mapper.TwitterMapper;
 import com.portfolio.twitter.portfolio.service.PortfolioService;
@@ -36,6 +34,19 @@ public class PortfolioDelegate {
         return getTwitterInformationService(Optional.of(portfolioService.findById(id))
                 .map(portfolioMapper::mapProfile)
                 .orElse(null));
+    }
+
+    public UserInfoResponse getPortfolios() {
+        List<ProfileInformation> profiles = portfolioService.findAll()
+                .stream()
+                .map(portfolioMapper::mapProfile)
+                .collect(Collectors.toList());
+
+        return new UserInfoResponse(profiles);
+    }
+
+    public String updatePortfolio(Integer id, ProfileRequest profileRequest) {
+        return null;
     }
 
     private ProfileResponse getTwitterInformationService(ProfileInformation profileInformation) {

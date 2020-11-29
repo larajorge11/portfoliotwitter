@@ -1,8 +1,8 @@
 package com.portfolio.twitter.portfolio.controller;
 
 import com.portfolio.twitter.portfolio.delegate.PortfolioDelegate;
-import com.portfolio.twitter.portfolio.domain.ProfileInformation;
-import com.portfolio.twitter.portfolio.domain.ProfileResponse;
+import com.portfolio.twitter.portfolio.domain.ProfileRequest;
+import com.portfolio.twitter.portfolio.domain.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +17,19 @@ public class PortfolioController {
         this.portfolioDelegate = portfolioDelegate;
     }
 
+    @GetMapping
+    public ResponseEntity<Response> getAllProfiles() {
+        return ResponseEntity.ok(portfolioDelegate.getPortfolios());
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<ProfileResponse> getInformation(@PathVariable("id") Integer id) {
+    public ResponseEntity<Response> getInformation(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(portfolioDelegate.getPortfolioById(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> modifyUserInfo(@PathVariable("id") Integer id,
-                                                          @RequestBody String request) {
-        return null;
+                                                          @RequestBody ProfileRequest request) {
+        return ResponseEntity.ok(portfolioDelegate.updatePortfolio(id, request));
     }
 }
