@@ -28,4 +28,9 @@ public class PortfolioJpaService implements PortfolioService {
     public Portfolio findById(Integer id) {
         return portfolioRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Portfolio save(Portfolio portfolio) {
+        return portfolioRepository.save(portfolio);
+    }
 }

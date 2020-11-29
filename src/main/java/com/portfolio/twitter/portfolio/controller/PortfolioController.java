@@ -3,9 +3,14 @@ package com.portfolio.twitter.portfolio.controller;
 import com.portfolio.twitter.portfolio.delegate.PortfolioDelegate;
 import com.portfolio.twitter.portfolio.domain.ProfileRequest;
 import com.portfolio.twitter.portfolio.domain.Response;
+import com.portfolio.twitter.portfolio.domain.StatusResponse;
+import com.portfolio.twitter.portfolio.exception.PortfolioException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/profile")
@@ -28,8 +33,10 @@ public class PortfolioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> modifyUserInfo(@PathVariable("id") Integer id,
+    public ResponseEntity<StatusResponse> modifyUserInfo(@PathVariable("id") Integer id,
                                                           @RequestBody ProfileRequest request) {
-        return ResponseEntity.ok(portfolioDelegate.updatePortfolio(id, request));
+        return Optional.of(portfolioDelegate.updatePortfolio(id, request))
+                .map(x -> ResponseEntity.ok(new StatusResponse(x)))
+                .orElseGet(()-> ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new StatusResponse("Data has not found")));
     }
 }

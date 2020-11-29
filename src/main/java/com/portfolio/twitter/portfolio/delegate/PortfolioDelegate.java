@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.portfolio.twitter.portfolio.utils.Constants.TWEETS_LIMIT;
+import static com.portfolio.twitter.portfolio.utils.Constants.*;
 
 @Component
 public class PortfolioDelegate {
@@ -46,7 +46,11 @@ public class PortfolioDelegate {
     }
 
     public String updatePortfolio(Integer id, ProfileRequest profileRequest) {
-        return null;
+        return Optional.ofNullable(portfolioService.findById(id))
+                .map(x -> portfolioMapper.mapProfileEntity(x, profileRequest))
+                .map(x -> portfolioService.save(x))
+                .map(x -> MESSAGE_SUCCESS)
+                .orElse(PROFILE_NOT_FOUND);
     }
 
     private ProfileResponse getTwitterInformationService(ProfileInformation profileInformation) {
