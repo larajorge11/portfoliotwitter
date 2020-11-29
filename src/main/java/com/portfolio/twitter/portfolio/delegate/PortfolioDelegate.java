@@ -30,13 +30,13 @@ public class PortfolioDelegate {
         this.twitterMapper = twitterMapper;
     }
 
-    public ProfileResponse getPortfolioById(Integer id) {
-        return getTwitterInformationService(Optional.of(portfolioService.findById(id))
+    public Response getPortfolioById(Integer id) {
+        return getTwitterInformationService(Optional.ofNullable(portfolioService.findById(id))
                 .map(portfolioMapper::mapProfile)
                 .orElse(null));
     }
 
-    public UserInfoResponse getPortfolios() {
+    public Response getPortfolios() {
         List<ProfileInformation> profiles = portfolioService.findAll()
                 .stream()
                 .map(portfolioMapper::mapProfile)
@@ -54,18 +54,22 @@ public class PortfolioDelegate {
     }
 
     private ProfileResponse getTwitterInformationService(ProfileInformation profileInformation) {
+        ProfileResponse profileResponse = null;
+        Optional<ProfileInformation> optionalProfileInformation = Optional.ofNullable(profileInformation);
+        if (optionalProfileInformation.isPresent()) {
+            List<TwitterInformation> twitterInformationList =
+                    twitterService.getTweetList(profileInformation.getTwitterUsername())
+                            .stream()
+                            .map(twitterMapper::mapTweet)
+                            .sorted(Comparator.comparing(TwitterInformation::getCreatedAt).reversed())
+                            .limit(TWEETS_LIMIT)
+                            .collect(Collectors.toList());
 
-        List<TwitterInformation> twitterInformationList =
-                twitterService.getTweetList(profileInformation.getTwitterUsername())
-                .stream()
-                .map(twitterMapper::mapTweet)
-                .sorted(Comparator.comparing(TwitterInformation::getCreatedAt).reversed())
-                .limit(TWEETS_LIMIT)
-                .collect(Collectors.toList());
-
-        return ProfileResponse.builder()
-                .profileInfo(profileInformation)
-                .tweets(twitterInformationList)
-                .build();
+            profileResponse = ProfileResponse.builder()
+                    .profileInfo(profileInformation)
+                    .tweets(twitterInformationList)
+                    .build();
+        }
+        return profileResponse;
     }
 }

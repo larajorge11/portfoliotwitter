@@ -1,4 +1,4 @@
 package com.portfolio.twitter.portfolio.domain;
 
-public interface Response {
+public abstract class Response {
 }

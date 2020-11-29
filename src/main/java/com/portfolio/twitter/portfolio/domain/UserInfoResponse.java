@@ -7,6 +7,6 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class UserInfoResponse implements Response {
+public class UserInfoResponse extends Response {
     private final List<ProfileInformation> profiles;
 }

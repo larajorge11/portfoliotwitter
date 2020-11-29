@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class StatusResponse implements Response {
+public class StatusResponse extends Response {
     private final String message;
 }
