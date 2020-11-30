@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://zemoga-test-db.crhpedy9xxto.us-east-1.rds.amazonaws.com:3306/zemoga_test_db
+    username: zemoga_test_db
+    password: Zem0ga.101
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+---
+twitter:
+  apiKey: KRy7l0v8wex3w8Sy5zThai3Ea
+  apiSecretKey: X2eBm0Y21kYEuR74W3Frqc2JVIizOj8Q1EVGatDsEVVEJo0ucu
+  accessToken: 1220032047516921859-otvXjhExyUTZ5GLxssc9h5ORqtPZja
+  accessTokenSecret: tmJKqM4ORfQW6CH7wIVV8uKNpmSEmeFAP8lYwGb19uYjj

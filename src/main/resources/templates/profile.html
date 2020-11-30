@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio Twitter User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        $(document).ready(function() {
+            const idProfile = window.location.href.slice(window.location.href.indexOf('?') + 1).split('=')[1];
+            const url = 'http://localhost:8080/profile/'+idProfile;
+              $.get(url, function(data) {
+                $("#name").append(data.profileInfo.title);
+                $("#imageTweet").append("<img src='" + data.profileInfo.imageUrl + "'>");
+                $("#description").append(data.profileInfo.description);
+                $("#twitterUser").append(data.profileInfo.twitterUserName);
+                $.each(data.tweets, function(index, value) {
+                    $("#tweet").append("<tr><td>"+value.createdAt+"</td><td>"+value.text+"</td></tr>")
+                });
+              });
+            });
+    </script>
+
+</head>
+<body>
+<div>
+    <table align="center" border="1" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
+        <tr>
+            <td>
+                <h1 id="name" class="title"></h1>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+                <table border="1" cellpadding="0" cellspacing="0" width="100%"  style="border-collapse: collapse;">
+                    <tr>
+                        <td width="260" valign="top">
+                            <div id="imageTweet" class="photoProfile"></div>
+                        </td>
+                        <td style="font-size: 0; line-height: 0;" width="20">&nbsp;</td>
+                        <td width="260" valign="top">
+                            <div id="description" class="userDesc"></div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table border="1" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                    <tr>
+                        <td>
+                            <h3 style="margin: 0;">Timeline</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 20px 0 30px 0;">
+                            <div id="tweet"></div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
