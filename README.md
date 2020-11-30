@@ -9,15 +9,9 @@ the experience and a 5 tweet list of the user’s Twitter timeline.
 To run the application, please take into account the following steps:
 
   - Install JAVA_HOME environments variable for Java 11.
-  - 
-  - Export documents as Markdown, HTML and PDF
-
-Install the dependencies and devDependencies and start the server.
-
+  
 ```sh
-$ cd dillinger
-$ npm install -d
-$ node app
+mvnw spring-boot:run
 ```
 
 ### Frameworks and Libraries
